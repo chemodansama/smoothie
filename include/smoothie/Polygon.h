@@ -280,6 +280,24 @@ inline auto createTrianglesMap(const CDT::Triangulation<float> &cdt)
     return result;
 }
 
+template <typename A, typename B>
+A add(const A &a, const B &b)
+{
+    return { getX(a) + getX(b), getY(a) + getY(b) };
+}
+
+template <typename A, typename B>
+A sub(const A &a, const B &b)
+{
+    return { getX(a) - getX(b), getY(a) - getY(b) };
+}
+
+template <typename Vec>
+Vec mul(const Vec &a, const float s)
+{
+    return { getX(a) * s, getY(a) * s };
+}
+
 }
 
 template <typename Vec>
@@ -302,12 +320,12 @@ Vec Polygon<Vec>::computeClosestPoint(const Vec &v) const
 
     float minDistanceSq = std::numeric_limits<float>::max();
 
-    const SplineLib::Vec2f vv{ v.x, v.y };
+    const SplineLib::Vec2f vv{ getX(v), getY(v) };
     for (const auto &s : splines_) {
         const auto t = SplineLib::FindClosestPoint(vv, s);
         const auto p = SplineLib::Position(s, t);
-        const Vec delta{ p.x - v.x, p.y - v.y };
-        const auto distanceSq = delta.x * delta.x + delta.y * delta.y;
+        const auto delta = details::sub(p, v);
+        const auto distanceSq = getX(delta) * getX(delta) + getY(delta) * getY(delta);
         if (minDistanceSq > distanceSq) {
             minDistanceSq = distanceSq;
             result = { p.x, p.y };
@@ -333,8 +351,8 @@ Vec Polygon<Vec>::computeCentroid() const
         const auto &a = contour_[i];
         const auto &b = contour_[(i + 1) % contour_.size()];
 
-        const auto factor = a.cross(b) / divisor;
-        c += (a + b) * factor;
+        const auto cp = getX(a) * getY(b) - getY(a) * getX(b);
+        c = details::add(c, details::mul(details::add(a, b), cp / divisor));
     }
 
     return c;
