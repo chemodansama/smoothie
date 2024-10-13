@@ -2,8 +2,8 @@
 
 ## C++ smooth polygon implementation
 
-Smoothie is a C++ library that uses (splines-lib)[https://github.com/andrewwillmott/splines-lib] 
-and (CDT library)[https://github.com/artem-ogre/CDT] to produce "smoothed" polygons,
+Smoothie is a C++ library that uses [splines-lib](https://github.com/andrewwillmott/splines-lib) 
+and [CDT library](https://github.com/artem-ogre/CDT) to produce "smoothed" polygons,
 i.e polygons which have splines instead of line segments.
 
 ## Features:
