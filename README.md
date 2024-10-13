@@ -25,7 +25,7 @@ i.e polygons which have splines instead of line segments.
         { 0.0f, size },
     };
 
-    // 0.0f tensions means CatmullRom splines, -1.0f gives spherical looks.
+    // 0.0f tension means CatmullRom splines, -1.0f gives spherical looks.
     // For more details please read splines-lib docs.
     const auto tension = 0.0f;
 
