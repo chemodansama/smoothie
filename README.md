@@ -108,8 +108,7 @@ Expected result:
 
 <img src="./docs/images/SmoothedSphericalPoly.png" alt="CatmullRom poly" style='height: 100%; width: 100%; max-height: 250px; object-fit: contain'/>
 
-###
- Spawning random points
+### Spawning random points
 ```
     smoothie::Polygon<glm::vec2> p{ points.begin(), points.end(), tension, segmentLength };
 
